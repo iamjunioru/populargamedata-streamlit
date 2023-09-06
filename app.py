@@ -9,7 +9,7 @@ df = pd.read_csv("games.csv")
 # data_url = "csvurl"
 # df = pd.read_csv(data_url)
 
-menu = st.sidebar.radio("navigation menu:", ["home sweet home", "top 10 most popular game (by genre)", "top 10 most popular game (by year)", "content 3"])
+menu = st.sidebar.radio("navigation menu:", ["home sweet home", "top 10 most popular game (by genre)", "top 10 most popular game (by year)", "top 10 most popular game (by dev)", "content 4"])
 
 def home():
     st.title("popular video games 1980 - 2023 🎮")
@@ -48,7 +48,26 @@ def game_year_popular():
     st.write(f"top 10 most popular game in {selected_year}:")
     st.table(year_data[['Title', 'Times Listed']])
 
-def content3():
+def games_by_developer():
+    st.subheader("top 10 most popular games (by developer)")
+    search_developer = st.text_input("search by developers:", key="developer_input").strip().lower()
+    
+    developers = df["Team"].unique()
+    
+    developers_filtrados = [dev for dev in developers if search_developer in str(dev).lower()]
+
+    if not developers_filtrados and search_developer:
+        st.warning("no developers found. showing all available developers.")
+        developers_filtrados = developers
+
+    # Exibir sugestões
+    selected_developer = st.selectbox("select a developer:", developers_filtrados)
+    
+    top_10_developer_games = df[df["Team"].str.lower() == str(selected_developer).lower()].nlargest(10, "Rating")
+    
+    st.table(top_10_developer_games[["Title", "Rating"]])
+    
+def content4():
     st.write("esse marllo é bom mesmo")
     
 # menu select
@@ -58,6 +77,10 @@ elif menu == "top 10 most popular game (by genre)":
     game_genre()
 elif menu == "top 10 most popular game (by year)":
     game_year_popular()
+elif menu == "top 10 most popular game (by dev)":
+    games_by_developer()
+elif menu == "content 4":
+    content4()
   
     
 # footer
