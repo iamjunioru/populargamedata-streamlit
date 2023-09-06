@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from curr_time import current_time
 
 ########
 # func #
@@ -8,15 +9,24 @@ import matplotlib.pyplot as plt
 
 
 def true_home():
-    st.title("welcome. :)")
+    st.title("hello. :)")
     user_name = st.text_input("pls enter your nickname:", key="user_name_input")
 
-    if st.button("🎈"):
+    if st.button("⚔️"):
         st.balloons()
 
     if user_name:
-        st.write(f"hey, {user_name}! welcome to popular games data.")
+        current_hour = int(current_time.split(" ")[-1].split(":")[0])
 
+        if 5 <= current_hour  < 12:
+            st.subheader(f"hey, {user_name}, good day! welcome to popular games data.")
+            
+        elif 12 <= current_hour < 18:
+            st.subheader(f"hey, {user_name}, good afternoon! welcome to popular games data.")
+        else:
+             st.subheader(f'"hey, {user_name}! welcome and good night.')
+             st.write('your journey has been a long one... rest a while before proceeding..."')
+             st.image("https://i.gifer.com/43Qz.gif", width=500)
 
 def home(df):
     st.title("popular video games 1980 - 2023 🎮")
@@ -57,7 +67,7 @@ def game_genre(df):
 
 
 def game_year_popular(df):
-    selected_year = st.slider("select year:", 1980, 2023, 2023)
+    selected_year = st.slider("select year:", 1980, 2023, 2001)
     year_data = df[df["Release Date"].str.contains(str(selected_year))]
     year_data = year_data.sort_values(by="Times Listed", ascending=False).head(10)
 
@@ -112,7 +122,7 @@ def best_rated(df):
 def best_rated_by_year(df):
     st.subheader("the 10 best rated games by year")
 
-    selected_year = st.slider("select year:", 1980, 2023)
+    selected_year = st.slider("select year:", 1980, 2023, 2001)
     year_data = df[df["Release Date"].str.contains(str(selected_year))]
     top_10_avaliados_por_ano = year_data.nlargest(10, "Rating")
 
