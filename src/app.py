@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 from functions import *
 from curr_time import current_time
+from sidebar_state import sidebar_state
 
 st.set_page_config(
     page_title="populargamesdata ",
     page_icon="🎮",
     layout="wide",
-    initial_sidebar_state="auto",
+    initial_sidebar_state=sidebar_state
 )
 
 # load dataset

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from curr_time import current_time
+from sidebar_state import toggle_sidebar_state
 
 ########
 # func #
@@ -13,7 +14,17 @@ def true_home():
     user_name = st.text_input("pls enter your nickname:", key="user_name_input")
 
     if st.button("⚔️"):
-        st.balloons()
+        new_bg_color = "#ffffff"
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-color: {new_bg_color};
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
     if user_name:
         current_hour = int(current_time.split(" ")[-1].split(":")[0])
@@ -24,8 +35,9 @@ def true_home():
         elif 12 <= current_hour < 18:
             st.subheader(f"hey, {user_name}, good afternoon! welcome to popular games data.")
         else:
-             st.subheader(f'"hey, {user_name}! welcome and good night.')
-             st.write('your journey has been a long one... rest a while before proceeding..."')
+             toggle_sidebar_state()
+             st.write(f'<span style="color: black; font-size: 30px; font-weight: bold;"><i>"good night, {user_name}.</i></span>', unsafe_allow_html=True)
+             st.write('<span style="color: black; font-size: 24px;"><i>your journey has been a long one... rest a while before proceeding...</span>"', unsafe_allow_html=True)
              st.image("https://i.gifer.com/43Qz.gif", width=500)
 
 def home(df):
