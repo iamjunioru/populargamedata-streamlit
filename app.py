@@ -24,7 +24,7 @@ def game_genre():
     fig, ax = plt.subplots()
     ax.barh(top_10_genero["Title"], top_10_genero["Rating"])
     ax.set_xlabel("rating")
-    ax.set_ylabel("games")
+    ax.set_ylabel("game(s)")
     ax.set_title(f"the 10 most popular {genero_selecionado}")
     
     st.pyplot(fig)
@@ -35,7 +35,7 @@ def content2():
 # menu select
 if menu == "home":
     home()
-elif menu == "content 1":
+elif menu == "top 10 most popular (game genre)":
     game_genre()
 elif menu == "content 2":
     content2()
