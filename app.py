@@ -14,10 +14,13 @@ menu = st.sidebar.radio("navigation menu:",
                          "top 10 most popular game (by genre)",
                          "top 10 most popular game (by year)",
                          "top 10 most popular game (by dev)",
+                         "the 10 more rated games",
                          "the 10 best rated games",
-                         "content 5",
-                         "content 6",
-                         "content 7"])
+                         "the 10 best rated games by year",
+                         "number of games released in year",
+                         "content 8",
+                         "content 9",
+                         "content 10"])
 
 def home():
     st.title("popular video games 1980 - 2023 🎮")
@@ -75,21 +78,43 @@ def games_by_developer():
     
     st.table(top_10_developer_games[["Title", "Rating"]])
     
+def more_rated():
+    st.subheader("the 10 more rated games")
+    
+    top_10_avaliados = df.nlargest(10, "Rating")
+    
+    st.table(top_10_avaliados[["Title", "Rating"]])
+    
 def best_rated():
     st.subheader("the 10 best rated games")
     
     top_10_avaliados = df.nlargest(10, "Rating")
     
     st.table(top_10_avaliados[["Title", "Rating"]])
-    
-def content5():
-    st.write("content 5")
-    
-def content6():
-    st.write("content 6")
 
-def content7():
-    st.write("content 7")
+def best_rated_by_year():
+    st.subheader("the 10 best rated games by year")
+    
+    selected_year = st.slider("select year:", 1980, 2023)
+    year_data = df[df['Release Date'].str.contains(str(selected_year))]
+    top_10_avaliados_por_ano = year_data.nlargest(10, "Rating")
+    
+    st.table(top_10_avaliados_por_ano[["Title", "Rating"]])
+
+def released_by_year():
+    st.subheader("number of games released in year")
+    
+    # Contagem de jogos por ano
+    games_by_year = df['Release Date'].str.extract(r'(\d{4})').rename(columns={0: 'Year'}).groupby('Year').size().reset_index(name='Count')
+    
+    st.bar_chart(games_by_year.set_index('Year'), use_container_width=True)
+    
+def content8():
+    st.write("content 8")
+def content9():
+    st.write("content 9")
+def content10():
+    st.write("content 10")
 
     
 # menu select
@@ -101,14 +126,14 @@ elif menu == "top 10 most popular game (by year)":
     game_year_popular()
 elif menu == "top 10 most popular game (by dev)":
     games_by_developer()
+elif menu == "the 10 more rated games":
+    more_rated()
 elif menu == "the 10 best rated games":
     best_rated()
-elif menu == "content 5":
-    content5()
-elif menu == "content 6":
-    content6()
-elif menu == "content 7":
-    content7()
+elif menu == "the 10 best rated games by year":
+    best_rated_by_year()
+elif menu == "number of games released in year":
+    released_by_year()
   
     
 # footer
