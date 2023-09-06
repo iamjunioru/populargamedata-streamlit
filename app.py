@@ -71,7 +71,6 @@ def games_by_developer():
         st.warning("no developers found. showing all available developers.")
         developers_filtrados = developers
 
-    # Exibir sugestões
     selected_developer = st.selectbox("select a developer:", developers_filtrados)
     
     top_10_developer_games = df[df["Team"].str.lower() == str(selected_developer).lower()].nlargest(10, "Rating")
@@ -81,9 +80,12 @@ def games_by_developer():
 def more_rated():
     st.subheader("the 10 more rated games")
     
-    top_10_avaliados = df.nlargest(10, "Rating")
+    # convert to numeric >
+    df["Number of Reviews"] = pd.to_numeric(df["Number of Reviews"], errors="coerce")
     
-    st.table(top_10_avaliados[["Title", "Rating"]])
+    top_10_avaliados = df.nlargest(10, "Number of Reviews")
+    
+    st.table(top_10_avaliados[["Title", "Number of Reviews"]])
     
 def best_rated():
     st.subheader("the 10 best rated games")
@@ -104,7 +106,7 @@ def best_rated_by_year():
 def released_by_year():
     st.subheader("number of games released in year")
     
-    # Contagem de jogos por ano
+    # games by year count
     games_by_year = df['Release Date'].str.extract(r'(\d{4})').rename(columns={0: 'Year'}).groupby('Year').size().reset_index(name='Count')
     
     st.bar_chart(games_by_year.set_index('Year'), use_container_width=True)
