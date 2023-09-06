@@ -49,11 +49,8 @@ with st.sidebar.expander("📝 about this project"):
     st.markdown(
         '<a href="https://github.com/iamjunioru/populargames-streamlit" target="_blank">click here {populargames-streamlit}</a>',
         unsafe_allow_html=True)
-    st.markdown(f'<p style="color: gray; font-weight: bold;">- isso foi feito no dia 06/09/2023 às 17:50<br>- estamos no dia {current_time}.<br><br>© 2023 Sistema de Apoio a Decisão.</p>', unsafe_allow_html=True)
-
+    st.markdown(f'<p style="color: gray; font-weight: bold;">- isso foi feito no dia 06/09/2023 às 17:50<br>- estamos no dia {current_time}.<br><br>© 2023 Sistemas de Apoio a Decisão.</p>', unsafe_allow_html=True)
     
-
-
 
 # menu select
 if menu == "true home":
