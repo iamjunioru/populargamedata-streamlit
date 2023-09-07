@@ -188,14 +188,45 @@ def released_by_year(df):
 
     st.bar_chart(games_by_year.set_index("Year"), use_container_width=True)
 
+def worst_by_genre(df):
+    st.subheader("the 10 worst games by genre")
+    search_genre = st.text_input("search by genre:", key="worst_genre_input")
+
+    if not search_genre:
+        st.warning("please, insert something.")
+        return
+
+    genre_data = df[df["Genres"].str.lower().str.contains(search_genre.lower())]
+    
+    if genre_data.empty:
+        st.warning("no games found for this genre.")
+        return
+
+    worst_10_genre = genre_data.nsmallest(10, "Rating")
+
+    st.table(worst_10_genre[["Title", "Rating"]])
+
+def worst_by_year(df):
+    st.subheader("top 10 worst games by year")
+    selected_year = st.slider("select year:", 1980, 2023, 2001)
+
+    year_data = df[df['Release Date'].str.contains(str(selected_year))]
+
+    if year_data.empty:
+        st.warning("no games found for this year.")
+        return
+
+    worst_10_year = year_data.nsmallest(10, "Rating")
+
+    st.table(worst_10_year[["Title", "Rating"]])
 
 def content8():
-    st.write("content 8")
+    st.write("content x")
 
 
 def content9():
-    st.write("content 9")
+    st.write("content xx")
 
 
 def content10():
-    st.write("content 10")
+    st.write("content xxx")

@@ -37,9 +37,16 @@ menu = menu_expander.radio(
         "the 10 best rated games",
         "the 10 best rated games by year",
         "number of games released in year",
-        "content 8",
-        "content 9",
-        "content 10",
+        "worst by genre",
+        "worst by year",
+        "worst by developer",
+        "worst overral",
+        "most played by year",
+        "least played by year",
+        "library no played",
+        "wishlit games",
+        "played games",
+        "playing games"
     ],
 )
 
@@ -74,6 +81,26 @@ elif menu == "the 10 best rated games by year":
     best_rated_by_year(df)
 elif menu == "number of games released in year":
     released_by_year(df)
+elif menu == "worst by genre":
+    worst_by_genre(df)
+elif menu == "worst by year":
+    worst_by_year(df)
+elif menu == "worst by developer":
+    worst_by_developer(df)
+elif menu == "worst overral":
+    worst_overall(df)
+elif menu == "most played by year":
+    most_played_by_year(df)
+elif menu == "least played by year":
+    least_played_by_year(df)
+elif menu == "library no played":
+    library_not_played(df)
+elif menu == "wishlit games":
+    wishlist_games(df)
+elif menu == "played games":
+    played_games(df)
+elif menu == "playing games":
+    playing_games(df)
 
 
 # footer
