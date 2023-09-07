@@ -10,12 +10,8 @@ from sidebar_state import toggle_sidebar_state
 
 
 def true_home():
-    st.title("hello. :)")
-    user_name = st.text_input("pls enter your nickname:", key="user_name_input")
-
-    if st.button("⚔️"):
-        new_bg_color = "#ffffff"
-        st.markdown(
+    new_bg_color = "#0E042A"
+    st.markdown(
             f"""
             <style>
             .stApp {{
@@ -25,6 +21,24 @@ def true_home():
             """,
             unsafe_allow_html=True,
         )
+    st.markdown("<h1 style='text-align: center; color: white; font-size: 40px; font-family: 'Courier New'>welcome. :)</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; color: white; font-size: 20px; font-family: 'Courier New''>{populargamedata}.</h1>", unsafe_allow_html=True)
+    user_name = st.text_input("please enter your nickname bellow:", key="user_name_input")
+
+    if st.button("⚔️"):
+        new_bg_color = "#370BB4"
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-color: {new_bg_color};
+                transition: background-color 1s;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
     if user_name:
         current_hour = int(current_time.split(" ")[-1].split(":")[0])
@@ -36,9 +50,26 @@ def true_home():
             st.subheader(f"hey, {user_name}, good afternoon! welcome to popular games data.")
         else:
              toggle_sidebar_state()
-             st.write(f'<span style="color: black; font-size: 30px; font-weight: bold;"><i>"good night, {user_name}.</i></span>', unsafe_allow_html=True)
-             st.write('<span style="color: black; font-size: 24px;"><i>your journey has been a long one... rest a while before proceeding...</span>"', unsafe_allow_html=True)
-             st.image("https://i.gifer.com/43Qz.gif", width=500)
+             st.write(f'<p style="color: white; font-size: 24px;"><i>"good night, <b>{user_name}</b>. your journey has been a long one...<br> rest a while before proceeding..."</i></p>', unsafe_allow_html=True)
+             # st.write('<a href="#" target="_blank" style="color: white; font-size: 20px; text-decoration: none;">[sleep]</a>', unsafe_allow_html=True)
+            
+             if st.button("😴"):
+                st.warning("you are sleeping...")
+                new_bg_color = "#000000"
+                st.markdown(
+                    f"""
+                    <style>
+                    .stApp {{
+                        background-color: {new_bg_color};
+                        transition: background-color 3s;
+                    }}
+                    </style>
+                    """,
+                    unsafe_allow_html=True,
+                )
+                # st.image("https://i.gifer.com/43Qz.gif", width=500)
+                
+             st.image("https://i.gifer.com/GE2a.gif", width=500)
 
 def home(df):
     st.title("popular video games 1980 - 2023 🎮")
@@ -114,6 +145,7 @@ def games_by_developer(df):
 
 def more_rated(df):
     st.subheader("the 10 more rated games")
+    st.write("the value is convert(string to numeric)")
 
     # convert to numeric >
     df["Number of Reviews"] = pd.to_numeric(df["Number of Reviews"], errors="coerce")
