@@ -8,7 +8,9 @@ st.set_page_config(
     page_title="populargamesdata ",
     page_icon="🎮",
     layout="wide",
-    initial_sidebar_state=sidebar_state
+    # initial_sidebar_state=sidebar_state
+    # for dev active this "expanded"
+    initial_sidebar_state="expanded"
 )
 
 # load dataset
