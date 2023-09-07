@@ -220,6 +220,45 @@ def worst_by_year(df):
 
     st.table(worst_10_year[["Title", "Rating"]])
 
+def worst_by_developer(df):
+    st.subheader("top 10 worst by developers")
+    search_developer = st.text_input("search a game developer:", key="worst_dev_input")
+
+    if not search_developer:
+        st.warning("please enter a developer to search.")
+        return
+
+    developer_data = df[df["Team"].str.lower().str.contains(search_developer.lower())]
+
+    if developer_data.empty:
+        st.warning("no games found for this developer.")
+        return
+
+    worst_10_developer = developer_data.nsmallest(10, "Rating")
+
+    st.table(worst_10_developer[["Title", "Rating"]])
+
+def worst_overall(df):
+    st.subheader("top 10 worst games overall")
+    
+    worst_10_overall = df.nsmallest(10, "Rating")
+
+    st.table(worst_10_overall[["Title", "Rating"]])
+
+def worst_by_year(df):
+    st.subheader("top 10 worst by year")
+    selected_year = st.slider("select year:", 1980, 2023, 2001)
+
+    year_data = df[df['Release Date'].str.contains(str(selected_year))]
+
+    if year_data.empty:
+        st.warning("no games found for this year.")
+        return
+
+    worst_10_year = year_data.nsmallest(10, "Rating")
+
+    st.table(worst_10_year[["Title", "Rating"]])
+
 def content8():
     st.write("content x")
 
