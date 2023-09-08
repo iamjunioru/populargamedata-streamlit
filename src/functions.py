@@ -81,6 +81,28 @@ this dataset contains a list of video games dating from 1980 to 2023, it also pr
     )
     st.dataframe(df)
 
+def all_search(df):
+    st.subheader("search all by game")
+
+    search_term = st.text_input("enter game name:", "")
+    
+    columns = list(df.columns)
+    columns.insert(0, "📊 all dataset") 
+    
+    selected_column = st.selectbox("choose what you want to display:", columns)
+    
+    if search_term:
+        search_result = df[df["Title"].str.contains(search_term, case=False)]
+        
+        if not search_result.empty:
+            for _, row in search_result.iterrows():
+                st.subheader(f"game: {row['Title']}")
+                if selected_column == "📊 all dataset":
+                    st.table(row)
+                else:
+                    st.write(f"{selected_column}: {row[selected_column]}")
+        else:
+            st.info("no matching games found.")
 
 def game_genre(df):
     st.subheader("top 10 most popular games (by genre)")
