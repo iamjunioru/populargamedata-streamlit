@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from curr_time import current_time
 from sidebar_state import toggle_sidebar_state
+from time import sleep
 
 ########
 # func #
@@ -226,7 +227,6 @@ def worst_by_developer(df):
     search_developer = (
         st.text_input("search developer:", key="developer_input").strip().lower()
     )
-    st.warning("please, insert something.")
 
     developers = df["Team"].unique()
 
@@ -329,18 +329,55 @@ def wishlist_games(df):
     st.table(top_10_wishlist[["Title", "Wishlist"]])
 
 def played_games(df):
-    st.subheader("Jogos Jogados")
+    st.subheader("games played (6 months ago)")
     
-    played = df[df["Plays"] > 0]
+    search_term = st.text_input("search game:", "")
     
-    st.table(played[["Title", "Plays"]])
+    df["Plays"] = pd.to_numeric(df["Plays"], errors="coerce")
+    
+    if search_term:
+        played = df[df["Title"].str.contains(search_term, case=False) & (df["Plays"] > 0)]
+    else:
+        played = df[df["Plays"] > 0]
+    
+    top_10_played = played.nlargest(10, "Plays")
+    
+    st.table(top_10_played[["Title", "Plays"]])
 
 def playing_games(df):
-    st.subheader("Jogos em Andamento")
+    st.subheader("games playing now (6 months ago)")
     
-    playing = df[df["Playing"] > 0]
+    search_term = st.text_input("search game:", "")
     
-    st.table(playing[["Title", "Playing"]])
+    df["Playing"] = pd.to_numeric(df["Playing"], errors="coerce")
+    
+    if search_term:
+        playing = df[df["Title"].str.contains(search_term, case=False) & (df["Playing"] > 0)]
+    else:
+        playing = df[df["Playing"] > 0]
+    
+    top_10_playing = playing.nlargest(10, "Playing")
+    
+    st.table(top_10_playing[["Title", "Playing"]])
+    
+    if st.button("?"):
+        new_bg_color = "#370BB4"
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-color: {new_bg_color};
+                transition: background-color 1s;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+        sleep(1)
+        st.warning("⭐ [ congratulations for getting this far ]")
+        sleep(2)
+        st.info("⭐ [ you win! ]")
+        sleep(2)
 
 def content8():
     st.write("content x")
