@@ -54,7 +54,7 @@ def true_home():
              # st.write('<a href="#" target="_blank" style="color: white; font-size: 20px; text-decoration: none;">[sleep]</a>', unsafe_allow_html=True)
             
              if st.button("😴"):
-                st.warning("you are sleeping...")
+                st.info("[ you are sleeping... ]")
                 new_bg_color = "#000000"
                 st.markdown(
                     f"""
@@ -220,23 +220,31 @@ def worst_by_year(df):
 
     st.table(worst_10_year[["Title", "Rating"]])
 
+# to fix ValueError: Cannot mask with non-boolean array containing NA / NaN values
 def worst_by_developer(df):
-    st.subheader("top 10 worst by developers")
-    search_developer = st.text_input("search a game developer:", key="worst_dev_input")
+    st.subheader("top 10 most worst games by developer")
+    search_developer = (
+        st.text_input("search developer:", key="developer_input").strip().lower()
+    )
+    st.warning("please, insert something.")
 
-    if not search_developer:
-        st.warning("please enter a developer to search.")
-        return
+    developers = df["Team"].unique()
 
-    developer_data = df[df["Team"].str.lower().str.contains(search_developer.lower())]
+    developers_filtrados = [
+        dev for dev in developers if search_developer in str(dev).lower()
+    ]
 
-    if developer_data.empty:
-        st.warning("no games found for this developer.")
-        return
+    if not developers_filtrados and search_developer:
+        st.warning("no developers found. Displaying all available developers.")
+        developers_filtrados = developers
 
-    worst_10_developer = developer_data.nsmallest(10, "Rating")
+    selected_developer = st.selectbox("select a developer:", developers_filtrados)
 
-    st.table(worst_10_developer[["Title", "Rating"]])
+    bottom_10_developer_games = df[
+        df["Team"].str.lower() == str(selected_developer).lower()
+    ].nsmallest(10, "Rating")
+
+    st.table(bottom_10_developer_games[["Title", "Rating"]])
 
 def worst_overall(df):
     st.subheader("top 10 worst games overall")
@@ -258,6 +266,81 @@ def worst_by_year(df):
     worst_10_year = year_data.nsmallest(10, "Rating")
 
     st.table(worst_10_year[["Title", "Rating"]])
+
+def most_played_by_year(df):
+    st.subheader("most played by year")
+    year = st.slider("select year:", 1980, 2023, 2001)
+    
+    df = df[df["Release Date"].str.match(r'^[A-Za-z]{3} \d{1,2}, \d{4}$', na=False, case=False)]
+    
+    df["Release Date"] = pd.to_datetime(df["Release Date"], format='%b %d, %Y', errors='coerce')
+    
+    year_data = df[df["Release Date"].dt.year == year]
+    top_played_games = year_data.sort_values(by="Plays", ascending=False).head(10)
+    
+    st.table(top_played_games[["Title", "Plays"]])
+
+def least_played_by_year(df):
+    st.subheader("least played games by year")
+    year = st.slider("select year:", 1980, 2023, 2001)
+    
+    df = df[df["Release Date"].str.match(r'^[A-Za-z]{3} \d{1,2}, \d{4}$', na=False, case=False)]
+    
+    df["Release Date"] = pd.to_datetime(df["Release Date"], format='%b %d, %Y', errors='coerce')
+    
+    year_data = df[df["Release Date"].dt.year == year]
+    
+    year_data = year_data.dropna(subset=["Plays"])
+    
+    bottom_played_games = year_data.sort_values(by="Plays").head(10)
+    
+    st.table(bottom_played_games[["Title", "Plays"]])
+
+def wishlist_but_not_played(df):
+    st.subheader("games in backlog but not played")
+    
+    df["Backlogs"] = pd.to_numeric(df["Backlogs"], errors="coerce")
+    df["Plays"] = pd.to_numeric(df["Plays"], errors="coerce")
+    
+    backlog_not_played = df[(df["Backlogs"] > 0) & (df["Plays"] == 0)]
+    
+    if backlog_not_played.empty:
+        st.info("no backlog but unplayed games found.")
+    elif len(backlog_not_played) == 1:
+        st.info("⭐ [ only 1 game(earthblade) on the backlog has never been played ]")
+        st.table(backlog_not_played[["Title", "Backlogs", "Plays"]])   
+    else:
+        st.table(backlog_not_played[["Title", "Backlogs", "Plays"]])
+
+def wishlist_games(df):
+    st.subheader("top 10 games in wishlist")
+    
+    search_term = st.text_input("search game:", "")
+    
+    df["Wishlist"] = pd.to_numeric(df["Wishlist"], errors="coerce")
+    
+    if search_term:
+        wishlist = df[df["Title"].str.contains(search_term, case=False) & (df["Wishlist"] > 0)]
+    else:
+        wishlist = df[df["Wishlist"] > 0]
+    
+    top_10_wishlist = wishlist.nlargest(10, "Wishlist")
+    
+    st.table(top_10_wishlist[["Title", "Wishlist"]])
+
+def played_games(df):
+    st.subheader("Jogos Jogados")
+    
+    played = df[df["Plays"] > 0]
+    
+    st.table(played[["Title", "Plays"]])
+
+def playing_games(df):
+    st.subheader("Jogos em Andamento")
+    
+    playing = df[df["Playing"] > 0]
+    
+    st.table(playing[["Title", "Playing"]])
 
 def content8():
     st.write("content x")
