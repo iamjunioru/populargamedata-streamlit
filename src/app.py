@@ -30,6 +30,7 @@ menu = menu_expander.radio(
     [
         "🏰 home",
         "📊 the dataset",
+        "🔎 search all by game",
         "👑 popular games by genre",
         "👑 popular games by year",
         "👑 popular games by dev",
@@ -67,6 +68,8 @@ if menu == "🏰 home":
     true_home()
 if menu == "📊 the dataset":
     home(df)
+elif menu == "🔎 search all by game":
+    all_search(df)
 elif menu == "👑 popular games by genre":
     game_genre(df)
 elif menu == "👑 popular games by year":
