@@ -26,27 +26,27 @@ st.sidebar.subheader("(u can choose one option below)")
 menu_expander = st.sidebar.expander("🗺️ menu")
 # menu select
 menu = menu_expander.radio(
-    "select a option:",
+    "🔵 select a option:",
     [
-        "true home",
-        "home sweet home",
-        "top 10 most popular game (by genre)",
-        "top 10 most popular game (by year)",
-        "top 10 most popular game (by dev)",
-        "the 10 more rated games",
-        "the 10 best rated games",
-        "the 10 best rated games by year",
-        "number of games released in year",
-        "worst by genre",
-        "worst by year",
-        "worst by developer",
-        "worst overral",
-        "most played by year",
-        "least played by year",
-        "library no played",
-        "wishlit games",
-        "played games",
-        "playing games"
+        "🏰 home",
+        "📊 the dataset",
+        "👑 popular games by genre",
+        "👑 popular games by year",
+        "👑 popular games by dev",
+        "📈 more rated games",
+        "📈 best rated games",
+        "📈 best rated games by year",
+        "🚀 games released in year",
+        "📉 worst by genre",
+        "📉 worst by year",
+        "📉 worst by developer",
+        "📉 worst overral",
+        "🎲 most played by year",
+        "🎲 least played by year",
+        "📖 wishlist but no played",
+        "📖 wishlist games",
+        "🎮 played games",
+        "🎮 playing games"
     ],
 )
 
@@ -63,43 +63,43 @@ with st.sidebar.expander("📝 about this project"):
     
 
 # menu select
-if menu == "true home":
+if menu == "🏰 home":
     true_home()
-if menu == "home sweet home":
+if menu == "📊 the dataset":
     home(df)
-elif menu == "top 10 most popular game (by genre)":
+elif menu == "👑 popular games by genre":
     game_genre(df)
-elif menu == "top 10 most popular game (by year)":
+elif menu == "👑 popular games by year":
     game_year_popular(df)
-elif menu == "top 10 most popular game (by dev)":
+elif menu == "👑 popular games by dev":
     games_by_developer(df)
-elif menu == "the 10 more rated games":
+elif menu == "📈 more rated games":
     more_rated(df)
-elif menu == "the 10 best rated games":
+elif menu == "📈 best rated games":
     best_rated(df)
-elif menu == "the 10 best rated games by year":
+elif menu == "📈 best rated games by year":
     best_rated_by_year(df)
-elif menu == "number of games released in year":
+elif menu == "🚀 games released in year":
     released_by_year(df)
-elif menu == "worst by genre":
+elif menu == "📉 worst by genre":
     worst_by_genre(df)
-elif menu == "worst by year":
+elif menu == "📉 worst by year":
     worst_by_year(df)
-elif menu == "worst by developer":
+elif menu == "📉 worst by developer":
     worst_by_developer(df)
-elif menu == "worst overral":
+elif menu == "📉 worst overral":
     worst_overall(df)
-elif menu == "most played by year":
+if menu == "🎲 most played by year":
     most_played_by_year(df)
-elif menu == "least played by year":
+elif menu == "🎲 least played by year":
     least_played_by_year(df)
-elif menu == "library no played":
-    library_not_played(df)
-elif menu == "wishlit games":
+elif menu == "📖 wishlist but no played":
+    wishlist_but_not_played(df)
+elif menu == "📖 wishlist games":
     wishlist_games(df)
-elif menu == "played games":
+elif menu == "🎮 played games":
     played_games(df)
-elif menu == "playing games":
+elif menu == "🎮 playing games":
     playing_games(df)
 
 
