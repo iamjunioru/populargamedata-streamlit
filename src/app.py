@@ -16,7 +16,7 @@ st.set_page_config(
 # load dataset
 # df = pd.read_csv("games.csv") 
 # or
-data_url = "https://raw.githubusercontent.com/iamjunioru/populargames-streamlit/main/src/games.csv"
+data_url = "https://raw.githubusercontent.com/iamjunioru/populargamedata-streamlit/main/src/games.csv"
 df = pd.read_csv(data_url)
 
 st.sidebar.title("🎮 populargamedata.st")
