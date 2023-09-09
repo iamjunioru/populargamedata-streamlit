@@ -3,17 +3,17 @@
 <div align="center"> <!-- centralize -->   
   <a href="https://github.com/iamjunioru/populargamedata-streamlit">    
     <img src="https://media.tenor.com/-tiZSwPEvmIAAAAC/shovel-knight.gif" alt="Logo" width="100" height="100"> <!-- IMAGine -->
-  </a>  
+  </a><
   <h3 align="center">{populargamedata}.</h3>
-
   <p align="center">
     this code consists of a final project carried out in the course of the <br><b>decision support systems (DSS or SAD) - information systems course - <a href="https://ifce.edu.br/cedro"> IFCE, Campus Cedro</a></b>.<br>
-    <br><b>{populargamesdata.st}</b> is an interactive platform using streamlit that provides comprehensive<br>and accessible data analysison </b>popular video games released between <b>1980</b> and <b>2023</b>.<br> It provides detailed information on various aspects of games including<br> [ <i>release date, user and critic ratings, developers, genres, and more, and more.</i> ]<br> 
+    <br><b>{populargamesdata.st}</b> is an interactive platform using streamlit that provides comprehensive<br>and accessible data analysison </b>popular video games released between <b>1980</b> and <b>2023</b>.<br> It provides detailed information on various aspects of games including<br> [ <i>release date, user and critic ratings, developers, genres, and more, and more.</i> ]<br>
     <br />
     · <a href="https://github.com/iamjunioru/challenge-week-xii/tree/main/src">view code</a>
     or 
     <a href="https://github.com/iamjunioru/challenge-week-xii/commits/main">commits</a> ·
     <br>
+    website <b><a href="https://populargamedata.streamlit.app">🎮 {populargamedata}</a></b>
   </p>
 
 ---
