@@ -18,11 +18,10 @@
 
 ---
 
-<h3>📚 table | content</h3>
-
-
-[🛠 install](#installation) · [⚡ run](#running)
-
+<h3>🌃 the visual:</h3>
+<img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img01.png" alt="Logo" width="452" height="236">
+<img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img02.png" alt="Logo" width="224" height="207">
+<img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img03.png" alt="Logo" width="479" height="260">
 
 ---
 
@@ -65,14 +64,7 @@
 
 ---
 
----
 
-<h3>🌃 visual:</h3>
-<img src="https://media.tenor.com/-tiZSwPEvmIAAAAC/shovel-knight.gif" alt="Logo" width="980" height="420">
-
----
-
-## installation
 ### 🛠 how to install:
 
 running the project requires the installation of <a href="https://www.python.org/downloads">🐍 python</a> and `requirements.txt`. you can get those in the following link:
@@ -84,7 +76,6 @@ you can clone this repository with:
 ```
 or fork/download the released zip file.
 
----
 
 after fork or clone the repository to your to your machine.
 install  `requirements.txt `:
@@ -92,7 +83,8 @@ install  `requirements.txt `:
   pip install -r requirements.txt
 ```
 
-## running
+--- 
+
 ### ⚡ how to run:
 
 then, run the following commands on cmd or powershell:
