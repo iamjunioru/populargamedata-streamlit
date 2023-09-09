@@ -45,10 +45,26 @@ def true_home():
         current_hour = int(current_time.split(" ")[-1].split(":")[0])
 
         if 5 <= current_hour  < 12:
+            toggle_sidebar_state()
             st.subheader(f"hey, {user_name}, good day! welcome to popular games data.")
             
         elif 12 <= current_hour < 18:
+            toggle_sidebar_state()
+            new_bg_color = "#34271F"
+            st.markdown(
+                    f"""
+                    <style>
+                    .stApp {{
+                        background-color: {new_bg_color};
+                        transition: background-color 3s;
+                    }}
+                    </style>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            sleep(0.5)
             st.subheader(f"hey, {user_name}, good afternoon! welcome to popular games data.")
+            st.image("https://i.pinimg.com/originals/2a/97/1c/2a971c1ccba457e4bde738c0d39e9705.gif", caption="it's raining.", width=500)
         else:
              toggle_sidebar_state()
              st.write(f'<p style="color: white; font-size: 24px;"><i>"good night, <b>{user_name}</b>. your journey has been a long one...<br> rest a while before proceeding..."</i></p>', unsafe_allow_html=True)
@@ -70,16 +86,19 @@ def true_home():
                 )
                 # st.image("https://i.gifer.com/43Qz.gif", width=500)
                 
-             st.image("https://i.gifer.com/GE2a.gif", width=500)
+             st.image("https://i.gifer.com/GE2a.gif", caption="a noble warrior resting.", width=500)
 
 def home(df):
     st.title("popular video games 1980 - 2023 🎮")
     st.markdown(
         """
-this dataset contains a list of video games dating from 1980 to 2023, it also provides things such as release dates, user review rating, and critic review rating.
+this 📊 dataset contains a list of video games dating from 1980 to 2023, it also provides things such as release dates, user review rating, and critic review rating.
 """
     )
     st.dataframe(df)
+    st.write(
+        "[link for kaggle dataset ](https://www.kaggle.com/datasets/arnabchaki/popular-video-games-1980-2023)"
+    )
 
 def all_search(df):
     st.subheader("search all by game")
@@ -130,9 +149,10 @@ def game_genre(df):
     ax.set_title(f"top 10 most popular games by genre {genero_selecionado}")
 
     st.pyplot(fig)
-
+    
 
 def game_year_popular(df):
+    st.subheader("popular games by year")
     selected_year = st.slider("select year:", 1980, 2023, 2001)
     year_data = df[df["Release Date"].str.contains(str(selected_year))]
     year_data = year_data.sort_values(by="Times Listed", ascending=False).head(10)
@@ -178,6 +198,7 @@ def more_rated(df):
     st.table(top_10_avaliados[["Title", "Number of Reviews"]])
 
 
+
 def best_rated(df):
     st.subheader("the 10 best rated games")
 
@@ -194,7 +215,6 @@ def best_rated_by_year(df):
     top_10_avaliados_por_ano = year_data.nlargest(10, "Rating")
 
     st.table(top_10_avaliados_por_ano[["Title", "Rating"]])
-
 
 def released_by_year(df):
     st.subheader("number of games released in year")
