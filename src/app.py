@@ -8,18 +8,19 @@ st.set_page_config(
     page_title="populargamesdata ",
     page_icon="🎮",
     layout="wide",
-    # initial_sidebar_state=sidebar_state
+    initial_sidebar_state=sidebar_state
     # for dev active this "expanded"
-    initial_sidebar_state="expanded"
+    # initial_sidebar_state="expanded"
 )
 
 # load dataset
-df = pd.read_csv("games.csv")
+# df = pd.read_csv("games.csv") 
 # or
-# data_url = "csvurl"
-# df = pd.read_csv(data_url)
+data_url = "https://raw.githubusercontent.com/iamjunioru/populargames-streamlit/main/src/games.csv"
+df = pd.read_csv(data_url)
 
 st.sidebar.title("🎮 populargamedata.st")
+
 st.sidebar.subheader("(u can choose one option below)")
 
 # menu expander
@@ -53,7 +54,11 @@ menu = menu_expander.radio(
 
 with st.sidebar.expander("🕹️ about team"):
     st.subheader("> made with 💔 by:")
-    st.write("junior - marllon - aleandro - juan")
+    st.write("[ junior - marllon - aleandro - juan ]")
+    st.image("https://i.gifer.com/YTup.gif", width=100)
+    st.text("* a cat spinning *")
+        
+
 
 with st.sidebar.expander("📝 about this project"):
     st.subheader("> repo on github:")
