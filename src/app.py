@@ -17,7 +17,15 @@ st.set_page_config(
 # df = pd.read_csv("games.csv") 
 # or
 data_url = "https://raw.githubusercontent.com/iamjunioru/populargamedata-streamlit/main/src/games.csv"
-df = pd.read_csv(data_url)
+df = pd.read_csv(data_url, index_col=0).drop_duplicates(subset=["Title"])
+# Aplique a função de padronização aos valores da coluna "Times Listed"
+df["Times Listed"] = df["Times Listed"].apply(padronizar_valores).apply(formatar_valor).astype(int)
+df["Number of Reviews"] = df["Number of Reviews"].apply(padronizar_valores).apply(formatar_valor).astype(int)
+df["Wishlist"] = df["Wishlist"].apply(padronizar_valores).apply(formatar_valor).astype(int)
+df["Playing"] = df["Playing"].apply(padronizar_valores).apply(formatar_valor).astype(int)
+
+df["Plays"] = df["Plays"].apply(padronizar_valores).apply(formatar_valor).astype(int)
+
 
 st.sidebar.title("🎮 populargamedata.st")
 
@@ -76,25 +84,25 @@ if menu == "📊 the dataset":
 elif menu == "🔎 search all by game":
     all_search(df)
 elif menu == "👑 popular games by genre":
-    game_genre(df)
+    game_genre(df, "best")
 elif menu == "👑 popular games by year":
     game_year_popular(df)
 elif menu == "👑 popular games by dev":
-    games_by_developer(df)
+    games_by_developer(df, "best")
 elif menu == "📈 more rated games":
     more_rated(df)
 elif menu == "📈 best rated games":
     best_rated(df)
 elif menu == "📈 best rated games by year":
-    best_rated_by_year(df)
+    best_rated_by_year(df, "best")
 elif menu == "🚀 games released in year":
     released_by_year(df)
 elif menu == "📉 worst by genre":
-    worst_by_genre(df)
+    game_genre(df, "worst")
 elif menu == "📉 worst by year":
-    worst_by_year(df)
+    best_rated_by_year(df, "worst")
 elif menu == "📉 worst by developer":
-    worst_by_developer(df)
+    games_by_developer(df, "worst")
 elif menu == "📉 worst overral":
     worst_overall(df)
 if menu == "🎲 most played by year":
