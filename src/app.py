@@ -5,7 +5,7 @@ from curr_time import current_time
 from sidebar_state import sidebar_state
 
 st.set_page_config(
-    page_title="populargamesdata ",
+    page_title="populargamedata ",
     page_icon="🎮",
     layout="wide",
     initial_sidebar_state=sidebar_state
@@ -62,7 +62,7 @@ menu = menu_expander.radio(
 
 with st.sidebar.expander("🕹️ about team"):
     st.subheader("> made with 💔 by:")
-    st.write("[ junior - marllon - aleandro - juan ]")
+    st.text("[ junior - marllon - aleandro - juan - gabriel ]")
     st.image("https://i.gifer.com/YTup.gif", width=100)
     st.text("* a cat spinning *")
         
@@ -71,7 +71,7 @@ with st.sidebar.expander("🕹️ about team"):
 with st.sidebar.expander("📝 about this project"):
     st.subheader("> repo on github:")
     st.markdown(
-        '<a href="https://github.com/iamjunioru/populargames-streamlit" target="_blank">click here {populargames-streamlit}</a>',
+        '<a href="https://github.com/iamjunioru/populargamedata-streamlit" target="_blank">click here {populargamedata-streamlit}</a>',
         unsafe_allow_html=True)
     st.markdown(f'<p style="color: gray; font-weight: bold;">- isso foi feito no dia 06/09/2023 às 17:50<br>- estamos no dia {current_time}.<br><br>© 2023 Sistemas de Apoio a Decisão.</p>', unsafe_allow_html=True)
     

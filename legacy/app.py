@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 st.set_page_config(
-    page_title="populargamesdata ",
+    page_title="populargamedata ",
     page_icon="🎮",
     layout="wide",
     initial_sidebar_state="auto",
@@ -48,7 +48,7 @@ with st.sidebar.expander("🕹️ about team"):
 with st.sidebar.expander("📝 about this project"):
     st.subheader("> repo on github:")
     st.markdown(
-        '<a href="https://github.com/iamjunioru/populargames-streamlit" target="_blank">click here {populargames-streamlit}</a>',
+        '<a href="https://github.com/iamjunioru/populargamedata-streamlit" target="_blank">click here {populargamedata-streamlit}</a>',
         unsafe_allow_html=True,
     )
 
