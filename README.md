@@ -19,6 +19,9 @@
 ---
 
 <h3>🌃 the visual:</h3>
+
+<img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/start.gif" alt="Logo" width="452" height="236">
+<br>
 <img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img01.png" alt="Logo" width="452" height="236">
 <img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img02.png" alt="Logo" width="224" height="207">
 <img src="https://github.com/iamjunioru/populargamedata-streamlit/blob/main/img/img03.png" alt="Logo" width="479" height="260">
