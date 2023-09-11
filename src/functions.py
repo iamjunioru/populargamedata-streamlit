@@ -28,6 +28,7 @@ def true_home():
     user_name = st.text_input("please enter your nickname bellow:", key="user_name_input")
 
     if st.button("⚔️"):
+        st.toast("✅ congratulations! you have unlocked a new achievement: welcome. ")
         new_bg_color = "#370BB4"
         st.markdown(
             f"""
@@ -90,19 +91,22 @@ def true_home():
              st.image("https://i.gifer.com/GE2a.gif", caption="a noble warrior resting.", width=500)
 
 def home(df):
-    st.title("popular video games 1980 - 2023 🎮")
+    st.title("🎮 popular video games 1980 - 2023")
     st.markdown(
         """
 this 📊 dataset contains a list of video games dating from 1980 to 2023, it also provides things such as release dates, user review rating, and critic review rating.
 """
     )
+
     st.dataframe(df)
+    st.caption("⬇️ click here to download the dataset:")
+    st.download_button("download", "games.csv", "click here to download the dataset.")
     st.write(
         "[link for kaggle dataset ](https://www.kaggle.com/datasets/arnabchaki/popular-video-games-1980-2023)"
     )
 
 def all_search(df):
-    st.subheader("search all by game")
+    st.subheader("🔎 search all by game")
 
     search_term = st.text_input("enter game name:", "")
     
@@ -141,7 +145,7 @@ def extract_unique_values(data, column_name):
     return list(unique_values)
 
 def game_genre(df, type_of_rating):
-    st.subheader("top 10 most popular games (by genre)")
+    st.subheader("top 10 👑 most popular/worst 📉 games (by genre)")
     search_genre = st.text_input("search by gender:", key="genre_input")
 
     #  list genre sugest
@@ -164,11 +168,11 @@ def game_genre(df, type_of_rating):
         top_10_genero = df[df["Genres"].apply(lambda x: genero_selecionado.lower() in x.lower())].nsmallest(10, "Rating").sort_values(by="Rating", ascending=True)
 
     fig, ax = plt.subplots()
-    ax.barh(top_10_genero["Title"], top_10_genero["Rating"])
+    ax.barh(top_10_genero["Title"], top_10_genero["Rating"], color="black")
     ax.invert_yaxis()
     ax.set_xlabel("rating")
     ax.set_ylabel("game(s)")
-    ax.set_title(f"top 10 most popular games by genre {genero_selecionado}")
+    ax.set_title(f"most popular games by genre {genero_selecionado}")
 
     st.pyplot(fig)
 
@@ -192,7 +196,7 @@ def formatar_valor(valor):
         return valor
 
 def game_year_popular(df):
-    st.subheader("popular games by year")
+    st.subheader("👑 top 10 popular games (by year)")
     selected_year = st.slider("select year:", 1980, 2023, 2001)
     year_data = df[df["Release Date"].str.contains(str(selected_year))]
     year_data = year_data.sort_values(by="Times Listed", ascending=False).head(10)
@@ -204,24 +208,24 @@ def game_year_popular(df):
     
     # Crie um gráfico de barras horizontais
     fig, ax = plt.subplots()
-    ax.barh(year_data["Title"], year_data["Times Listed"], color="skyblue")
+    ax.barh(year_data["Title"], year_data["Times Listed"], color="black")
     # Inverta a ordem dos itens
     ax.invert_yaxis()
     ax.set_xlabel("Times Listed")
     ax.set_ylabel("Game(s)")
-    ax.set_title(f"The top 10 popular games in the year {selected_year}")
+    ax.set_title(f"most popular games in the year {selected_year}")
 
     # Exiba o gráfico
     st.pyplot(fig)
 
-    st.write(f"top 10 most popular game in {selected_year}:")
+    st.write(f"👑 top 10 most popular game in {selected_year}:")
     st.table(year_data[["Title", "Times Listed"]])
 
 def games_by_developer(df, type_of_rating):
     if type_of_rating == "best":
-        st.subheader("top 10 best games by developer")
+        st.subheader("👑 top 10 best games (by developer)")
     else:
-        st.subheader("top 10 worst games by developer")
+        st.subheader("📉 top 10 worst games (by developer)")
 
     developers = df["Team"].unique()
     developers = extract_unique_values(df, "Team")
@@ -235,24 +239,24 @@ def games_by_developer(df, type_of_rating):
         top_10_developer_games = df[df["Team"].str.contains(selected_developer, na=False)].nsmallest(10, "Rating")
 
     if top_10_developer_games.empty:
-        st.warning("no games found for this developer.")
+        st.warning("🚨 [ no games found for this developer. ]")
         return
 
     st.table(top_10_developer_games[["Title", "Rating"]])
 
 def more_rated(df):
-    st.subheader("the 10 more rated games")
+    st.subheader("📈 top 10 more rated games")
 
     top_10_avaliados = df.nlargest(10, "Number of Reviews")
 
     # Crie um gráfico de barras horizontais
     fig, ax = plt.subplots()
-    ax.barh(top_10_avaliados["Title"], top_10_avaliados["Number of Reviews"], color="skyblue")
+    ax.barh(top_10_avaliados["Title"], top_10_avaliados["Number of Reviews"], color="black")
     # Inverta a ordem dos itens
     ax.invert_yaxis()
     ax.set_xlabel("Number of Reviews")
     ax.set_ylabel("Game(s)")
-    ax.set_title("The 10 most rated games")
+    ax.set_title("top 10 more rated games")
 
     # Exiba o gráfico
     st.pyplot(fig)
@@ -260,24 +264,24 @@ def more_rated(df):
     st.table(top_10_avaliados[["Title", "Number of Reviews"]])
 
 def best_rated(df):
-    st.subheader("the 10 best rated games")
+    st.subheader("📈 top 10 best rated games")
 
     top_10_avaliados = df.nlargest(10, "Rating")
     # Crie um gráfico de barras horizontais
     fig, ax = plt.subplots()
-    ax.barh(top_10_avaliados["Title"], top_10_avaliados["Rating"], color="skyblue")
+    ax.barh(top_10_avaliados["Title"], top_10_avaliados["Rating"], color="black")
     # Inverta a ordem dos itens
     ax.invert_yaxis()
-    ax.set_xlabel("Classificação")
-    ax.set_ylabel("Jogo(s)")
-    ax.set_title("Os 10 jogos mais bem avaliados")
+    ax.set_xlabel("rating")
+    ax.set_ylabel("game(s)")
+    ax.set_title("top 10 best rated games")
 
     # Exiba o gráfico
     st.pyplot(fig)
     st.table(top_10_avaliados[["Title", "Rating"]])
 
 def best_rated_by_year(df, type_of_rating):
-    st.subheader("the 10 best rated games by year")
+    st.subheader("top 10 📈 best/worst 📉 rated games (by year)")
 
     selected_year = st.slider("select year:", 1980, 2023, 2001)
     year_data = df[df["Release Date"].str.contains(str(selected_year))]
@@ -289,12 +293,12 @@ def best_rated_by_year(df, type_of_rating):
 
     # se n tiver dados
     if top_10_avaliados_por_ano.empty:
-        st.warning("no games found for this year.")
+        st.warning("🚨 [ no games found for this year. ]")
         return
     
     # Crie um gráfico de barras horizontais
     fig, ax = plt.subplots()
-    ax.barh(top_10_avaliados_por_ano["Title"], top_10_avaliados_por_ano["Rating"], color="skyblue")
+    ax.barh(top_10_avaliados_por_ano["Title"], top_10_avaliados_por_ano["Rating"], color="black")
     # Inverta a ordem dos itens
     ax.invert_yaxis()
     ax.set_xlabel("Rating")
@@ -307,7 +311,7 @@ def best_rated_by_year(df, type_of_rating):
     st.table(top_10_avaliados_por_ano[["Title", "Rating"]])
 
 def released_by_year(df):
-    st.subheader("number of games released in year")
+    st.subheader("🚀 games released in year")
 
     # games by year count
     games_by_year = (
@@ -379,17 +383,17 @@ def released_by_year(df):
 #     st.table(bottom_10_developer_games[["Title", "Rating"]])
 
 def worst_overall(df):
-    st.subheader("top 10 worst games overall")
+    st.subheader("📉 top 10 worst games overall")
     
     worst_10_overall = df.nsmallest(10, "Rating")
 
     # grafico
     fig, ax = plt.subplots()
-    ax.barh(worst_10_overall["Title"], worst_10_overall["Rating"], color="skyblue")
+    ax.barh(worst_10_overall["Title"], worst_10_overall["Rating"], color="black")
     ax.invert_yaxis()
     ax.set_xlabel("Rating")
-    ax.set_ylabel("Game(s)")
-    ax.set_title("The top 10 worst rated games")
+    ax.set_ylabel("game(s)")
+    ax.set_title("top 10 worst rated games")
 
     st.pyplot(fig)
 
@@ -410,7 +414,7 @@ def worst_overall(df):
 #     st.table(worst_10_year[["Title", "Rating"]])
 
 def most_played_by_year(df):
-    st.subheader("most played by year")
+    st.subheader("🎲 most played by year")
     year = st.slider("select year:", 1980, 2023, 2001)
     
     df = df[df["Release Date"].str.match(r'^[A-Za-z]{3} \d{1,2}, \d{4}$', na=False, case=False)]
@@ -421,11 +425,11 @@ def most_played_by_year(df):
     top_played_games = year_data.sort_values(by="Plays", ascending=False).head(10)
 
     if top_played_games.empty:
-        st.warning("no games found for this year.")
+        st.warning("🚨 [ no games found for this year. ]")
         return
     
     fig, ax = plt.subplots()
-    ax.barh(top_played_games["Title"], top_played_games["Plays"], color="skyblue")
+    ax.barh(top_played_games["Title"], top_played_games["Plays"], color="black")
     ax.invert_yaxis()
     ax.set_xlabel("Plays")
     ax.set_ylabel("Game(s)")
@@ -436,7 +440,7 @@ def most_played_by_year(df):
     st.table(top_played_games[["Title", "Plays"]])
 
 def least_played_by_year(df):
-    st.subheader("least played games by year")
+    st.subheader("🎲 least played games by year")
     year = st.slider("select year:", 1980, 2023, 2001)
     
     df = df[df["Release Date"].str.match(r'^[A-Za-z]{3} \d{1,2}, \d{4}$', na=False, case=False)]
@@ -450,11 +454,11 @@ def least_played_by_year(df):
     bottom_played_games = year_data.sort_values(by="Plays").head(10)
     
     if bottom_played_games.empty:
-        st.warning("no games found for this year.")
+        st.warning("🚨 [ no games found for this year. ]")
         return
     
     fig, ax = plt.subplots()
-    ax.barh(bottom_played_games["Title"], bottom_played_games["Plays"], color="skyblue")
+    ax.barh(bottom_played_games["Title"], bottom_played_games["Plays"], color="black")
     ax.invert_yaxis()
     ax.set_xlabel("Plays")
     ax.set_ylabel("Game(s)")
@@ -465,7 +469,7 @@ def least_played_by_year(df):
     st.table(bottom_played_games[["Title", "Plays"]])
 
 def wishlist_but_not_played(df):
-    st.subheader("games in backlog but not played")
+    st.subheader("📖 games in backlog but not played")
     
     df["Backlogs"] = pd.to_numeric(df["Backlogs"], errors="coerce")
     df["Plays"] = pd.to_numeric(df["Plays"], errors="coerce")
@@ -481,7 +485,7 @@ def wishlist_but_not_played(df):
         st.table(backlog_not_played[["Title", "Backlogs", "Plays"]])
 
 def wishlist_games(df):
-    st.subheader("top 10 more whishlist games")
+    st.subheader("📖 top 10 more whishlist games")
     
     search_term = st.text_input("search game:", "")
     
@@ -495,7 +499,7 @@ def wishlist_games(df):
     top_10_wishlist = wishlist.nlargest(10, "Wishlist")
 
     fig, ax = plt.subplots()
-    ax.barh(top_10_wishlist["Title"], top_10_wishlist["Wishlist"], color="skyblue")
+    ax.barh(top_10_wishlist["Title"], top_10_wishlist["Wishlist"], color="black")
     ax.invert_yaxis()
     ax.set_xlabel("Wishlist")
     ax.set_ylabel("Game(s)")
@@ -506,7 +510,7 @@ def wishlist_games(df):
     st.table(top_10_wishlist[["Title", "Wishlist"]])
 
 def played_games(df):
-    st.subheader("games played (6 months ago)")
+    st.subheader("🎮 games played (6 months ago)")
     
     search_term = st.text_input("search game:", "")
     
@@ -521,7 +525,7 @@ def played_games(df):
 
     if len(top_10_played) > 1:
         fig, ax = plt.subplots()
-        ax.barh(top_10_played["Title"], top_10_played["Plays"], color="skyblue")
+        ax.barh(top_10_played["Title"], top_10_played["Plays"], color="black")
         ax.invert_yaxis()
         ax.set_xlabel("Plays")
         ax.set_ylabel("Game(s)")
@@ -533,7 +537,7 @@ def played_games(df):
     st.table(top_10_played[["Title", "Plays"]])
 
 def playing_games(df):
-    st.subheader("games playing now (6 months ago)")
+    st.subheader("🎮 games playing now (6 months ago)")
     
     search_term = st.text_input("search game:", "")
     
@@ -549,7 +553,7 @@ def playing_games(df):
     # only show graph if there is  more than 1 game
     if len(top_10_playing) > 1:
         fig, ax = plt.subplots()
-        ax.barh(top_10_playing["Title"], top_10_playing["Playing"], color="skyblue")
+        ax.barh(top_10_playing["Title"], top_10_playing["Playing"], color="black")
         ax.invert_yaxis()
         ax.set_xlabel("Playing")
         ax.set_ylabel("Game(s)")
@@ -572,6 +576,7 @@ def playing_games(df):
             """,
             unsafe_allow_html=True,
         )
+        st.balloons()
         sleep(1)
         st.warning("⭐ [ congratulations for getting this far ]")
         sleep(2)
