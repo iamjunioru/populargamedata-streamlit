@@ -7,7 +7,7 @@
   <h3 align="center">{populargamedata}.</h3>
   <p align="center">
     this code consists of a final project carried out in the course of the <br><b>decision support systems (DSS or SAD) - information systems course - <a href="https://ifce.edu.br/cedro"> IFCE, Campus Cedro</a></b>.<br>
-    <br><b>{populargamesdata.st}</b> is an interactive platform using streamlit that provides comprehensive<br>and accessible data analysison </b>popular video games released between <b>1980</b> and <b>2023</b>.<br> It provides detailed information on various aspects of games including<br> [ <i>release date, user and critic ratings, developers, genres, and more, and more.</i> ]<br>
+    <br><b>{populargamesdata}</b> is an interactive platform using streamlit that provides comprehensive<br>and accessible data analysison </b>popular video games released between <b>1980</b> and <b>2023</b>.<br> It provides detailed information on various aspects of games including<br> [ <i>release date, user and critic ratings, developers, genres, and more, and more.</i> ]<br>
     <br />
     · <a href="https://github.com/iamjunioru/challenge-week-xii/tree/main/src">view code</a>
     or 
